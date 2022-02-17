@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import BottomHeader from './BottomHeader.js'
 import MenuProductHeader from './MenuProductHeader.js'
 import style from'./Header.module.css'
@@ -8,10 +9,10 @@ export default function Header() {
         <div>
             <nav className={`navbar navbar-expand-lg navbar-light bg-light row align-items-start `}>
                 <div className="col-lg-3 col-md-12 col-sm-12 mt-2">
-                    <a className="navbar-brand text-dark text-uppercase font-weight-bold" href="#">
+                    <Link to='/' className="navbar-brand text-dark text-uppercase font-weight-bold" href="#">
                         <i className="fa-solid fa-house-laptop mr-2"></i>
                         DUY COMPUTER
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="col-lg-5 col-md-12 col-sm-12 mt-2">

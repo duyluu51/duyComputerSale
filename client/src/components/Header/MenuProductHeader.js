@@ -23,7 +23,7 @@ export default function MenuProductHeader() {
                     <li key={index} className={`nav-item active`}>
                         <div className="dropdown btn-group">
                             <a className={`navbar-brand text-dark ${style.btnGroupNav}`} href="#">
-                                <img className={`${style.navIcon}`}  src={product.icon}/>
+                                <img className={`${style.navIcon}`}  src={product.icon} alt="product"/>
                                 <span>{product.productType}</span>
                             </a>
 

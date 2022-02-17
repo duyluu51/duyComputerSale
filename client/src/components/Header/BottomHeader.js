@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+import style from'./Header.module.css'
 export default function BottomHeader() {
     return (
         <div className="card-header bg-primary">
@@ -16,12 +18,20 @@ export default function BottomHeader() {
                         </a>
                     </li>
 
-                    <li className="nav-item active mr-4">
+                    <li className={`nav-item active mr-4 position-relative ${style.bottomHeaderDropdown}`}>
                         <a href="#" className="text-light">
                             <i className="fa-solid fa-screwdriver-wrench mr-2"></i>
                             <span className="text-white">Setting</span>
                         </a>
+
+                        <div className={`dropdown-menu position-absolute ${style.dropdownMenu}`} aria-labelledby="dropdownMenuButton">
+                            <Link to='/admin/createproduct' className={`dropdown-item ${style.dropdownMenuItem}`}>Danh sách sản phẩm</Link>
+                            <a className={`dropdown-item ${style.dropdownMenuItem}`} href="#">Thêm sản phẩm</a>
+
+                        </div>
                     </li>
+
+
                 </ul>
         </div>
     )

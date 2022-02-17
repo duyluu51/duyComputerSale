@@ -1,3 +1,4 @@
+/* File MenuProductHeader */
 
 div:hover > .dropdownHover{
     display: block;
@@ -30,4 +31,19 @@ li:hover .btnGroupNav{
     height: 28px;
 }
 
+/* File BottomHeader */
 
+.bottomHeaderDropdown:hover > a{
+    opacity: 0.8
+}
+
+.bottomHeaderDropdown:hover .dropdownMenu{
+    display: block;
+    margin-top: 0;
+}
+
+.dropdownMenu .dropdownMenuItem:hover{
+    opacity: 0.8;
+    color:red;
+    border-bottom: solid red 2px;
+}
