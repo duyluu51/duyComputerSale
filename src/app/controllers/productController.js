@@ -1,13 +1,13 @@
-const Products=require('../models/Product')
+const ProductList=require('../models/ProductList')
 // const {mongooseToObject} = require('../../util/mongoose')
 
 class ProductController {
     
      // [GET] /store
      store(req, res, next) {
-        Products.find({subject:"ListTypeProduct"})
-            .then(product => {
-                res.json({product})
+        ProductList.find({subject:"ListTypeProduct"})
+            .then(productitem => {
+                res.json({productitem})
                 }
             )
             .catch(next)

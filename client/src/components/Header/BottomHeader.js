@@ -25,8 +25,8 @@ export default function BottomHeader() {
                         </a>
 
                         <div className={`dropdown-menu position-absolute ${style.dropdownMenu}`} aria-labelledby="dropdownMenuButton">
-                            <Link to='/admin/createproduct' className={`dropdown-item ${style.dropdownMenuItem}`}>Danh sách sản phẩm</Link>
-                            <a className={`dropdown-item ${style.dropdownMenuItem}`} href="#">Thêm sản phẩm</a>
+                            <a className={`dropdown-item ${style.dropdownMenuItem}`} href="#">Danh sách sản phẩm</a>
+                            <Link to='/admin/createproduct' className={`dropdown-item ${style.dropdownMenuItem}`}>Thêm sản phẩm</Link>
 
                         </div>
                     </li>

@@ -5,10 +5,14 @@ const Schema = mongoose.Schema;
 const mongooseDelete = require('mongoose-delete')
 
 const Product = new Schema({
-  type: { type:String, required: true},
-  name: { type:String, required: true},
-  list:{ type:Array, required: true},
-  subject: {type:String, required: true}
+  nameProduct: { type:String, required: true},
+  branch: { type:String, required: true},
+  typeProduct: { type:String, required: true},
+  typeDetailProduct: { type:String, required: true},
+  price: { type:Number, required: true},
+  imgs:{type:Array},
+  description:{type:String},
+  list:{ type:Array, required: true}
   // slug: { type: String, slug:'name', unique:true }
 },{
   timestamps:true

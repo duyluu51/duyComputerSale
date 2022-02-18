@@ -8,7 +8,8 @@ export default function MenuProductHeader() {
      useEffect(() => {
          axios.get('/product/store')
              .then(function ({data}) {
-                setListProduct(data.product[0].list)
+                 console.log(data)
+                setListProduct(data.productitem[0].list)
              })
              .catch(function (error) {
                  console.log(error);
