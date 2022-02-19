@@ -1,4 +1,6 @@
 const ProductList=require('../models/ProductList')
+const Product=require('../models/Product')
+
 // const {mongooseToObject} = require('../../util/mongoose')
 
 class ProductController {
@@ -11,6 +13,18 @@ class ProductController {
                 }
             )
             .catch(next)
+    }
+
+     // [GET] /create
+     create(req, res, next) {
+        const product = new Product(req.body)
+        product.save()
+            .then(()=> {
+                console.log("Save data sucess")
+            })
+            .then(() => {
+                res.json("OK")
+            })
     }
 
 }

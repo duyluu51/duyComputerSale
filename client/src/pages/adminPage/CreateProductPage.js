@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {useState, useEffect,Fragment} from 'react'
+import {useState, useEffect,Fragment,useRef} from 'react'
 
 export default function CreateProductPage() {
    
@@ -8,10 +8,13 @@ export default function CreateProductPage() {
     const [branch, setBranch]=useState('')
     const [typeProduct,setTypeProduct] =useState('')
     const [typeDetailProduct,setTypeDetailProduct] =useState('')
+    const [price,setPrice] =useState('')
+    const [description,setDescription] =useState('')
+    const inputFileRef=useRef()
 
- //Lấy ra list product từ DB
+ //Lấy ra list product từ DB [GET]
     useEffect(() => {
-        axios.get('/product/store')
+        axios.get('http://localhost:5000/product/store')
             .then(function ({data}) {
                setListProduct(data.productitem[0].list)
             })
@@ -20,16 +23,29 @@ export default function CreateProductPage() {
             })
     },[])
 
-    useEffect(() => {
-        console.log([nameProduct,branch,typeProduct,typeDetailProduct])
+// Hàm xử lý form submit
+    const handleSubmit = e => {
+        e.preventDefault()
+        const productSubmit = {
+            nameProduct,
+            branch,
+            typeProduct,
+            typeDetailProduct,
+            imgs:inputFileRef.current.files[0],
+            price,
+            description
+        };
+        console.log([productSubmit.imgs])
 
-    },[nameProduct,branch,typeProduct,typeDetailProduct])
+        axios.post('http://localhost:5000/product/create', productSubmit)
+            .then(res => console.log("Save data sucess"));
+    }
 
     return (
         <div id="CreateProductPage">
 
             {/* Nhập Name Product */}
-            <form className="mt-2">
+            <form className="mt-2" encType="multipart/form-data" onSubmit={e => handleSubmit(e)} >
                 <div className="form-group">
                     <label htmlFor="nameProduct">Name Product</label>
                     <input 
@@ -100,10 +116,39 @@ export default function CreateProductPage() {
                     </select>
                 </div>
                 )}
-                
+
+                {/* Nhập price */}
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlTextarea1">Example textarea</label>
-                    <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label htmlFor="price">Price</label>
+                    <input 
+                        type="text" 
+                        className="form-control"
+                        value={price}
+                        placeholder="Nhập giá sản phẩm..." 
+                        onChange={(e) => setPrice(e.target.value)}
+                    />
+                </div>
+
+                {/* ĐÍnh kèm hình ảnh sản phẩm */}
+                <div className="form-group">
+                    <label htmlFor="img">Ảnh sản phẩm</label>
+                    <input type="file" className="form-control" ref={inputFileRef} name="imgs" />
+                </div>
+
+               {/* Nhập Loại mô tả sản phẩm*/} 
+                <div className="form-group">
+                    <label htmlFor="description">Mô tả chi tiết</label>
+                    <textarea 
+                        className="form-control" 
+                        rows="6"
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                    ></textarea>
+                </div>
+
+                {/* Submit form */}
+                <div className="form-group">
+                    <input type="submit" value="Thêm sản phẩm" className="btn btn-primary"/>
                 </div>
             </form>
         </div>

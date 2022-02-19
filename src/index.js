@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const methodOverride = require('method-override')
+const cors = require('cors')
 const app = express()
 const port = 5000
 
@@ -20,6 +21,7 @@ const db=require('./config/db')
 // Connect to db
 db.connect()
 
+app.use(cors())
 app.use(methodOverride('_method'))
 app.use(express.json())
 
