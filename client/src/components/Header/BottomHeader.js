@@ -3,6 +3,7 @@ import style from'./Header.module.css'
 export default function BottomHeader() {
     return (
         <div className="card-header bg-primary">
+            <div className="container">
                 <ul className="navbar-nav mr-auto d-flex flex-row">
                     <li className="nav-item active mr-4">
                         <a href="#" className="text-light">
@@ -30,9 +31,9 @@ export default function BottomHeader() {
 
                         </div>
                     </li>
-
-
                 </ul>
+            </div>
+            
         </div>
     )
 }

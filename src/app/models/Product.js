@@ -10,7 +10,7 @@ const Product = new Schema({
   typeProduct: { type:String, required: true},
   typeDetailProduct: { type:String, required: true},
   price: { type:Number, required: true},
-  imgs:{type:Array},
+  imgs:[String],
   description:{type:String},
   list:{ type:Array, required: true}
   // slug: { type: String, slug:'name', unique:true }
