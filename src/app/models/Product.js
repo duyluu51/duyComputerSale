@@ -5,15 +5,16 @@ const Schema = mongoose.Schema;
 const mongooseDelete = require('mongoose-delete')
 
 const Product = new Schema({
-  nameProduct: { type:String, required: true},
-  branch: { type:String, required: true},
-  typeProduct: { type:String, required: true},
-  typeDetailProduct: { type:String, required: true},
-  price: { type:String, required: true},
-  description:{type:String, required: true},
-  slug: { type: String, slug:'nameProduct', unique:true }
-},{
-  timestamps:true
+  nameProduct: { type: String, required: true },
+  branch: { type: String, required: true },
+  typeProduct: { type: String, required: true },
+  typeDetailProduct: { type: String, required: true },
+  price: { type: String, required: true },
+  fileUrl:{ type: String, required: true },
+  description: { type: String, required: true },
+  slug: { type: String, slug: 'nameProduct', unique: true }
+}, {
+  timestamps: true
 });
 
 // Add plugin
@@ -23,4 +24,4 @@ mongoose.plugin(slug)
 //   deletedAt : true,
 // })
 
-module.exports=mongoose.model('Product', Product)
+module.exports = mongoose.model('Product', Product)

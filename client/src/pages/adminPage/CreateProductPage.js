@@ -1,40 +1,40 @@
 import axios from 'axios'
 import FormData from 'form-data'
-import {useState, useEffect,Fragment,useRef} from 'react'
+import { useState, useEffect, Fragment, useRef } from 'react'
 
 export default function CreateProductPage() {
-   
-    const [listProduct,setListProduct] =useState([])
-    const [nameProduct, setNameProduct]=useState('')
-    const [branch, setBranch]=useState('')
-    const [typeProduct,setTypeProduct] =useState('')
-    const [typeDetailProduct,setTypeDetailProduct] =useState('')
-    const [price,setPrice] =useState('')
-    const [description,setDescription] =useState('')
-    const inputFileRef=useRef()
 
- //Lấy ra list product từ DB [GET]
+    const [listProduct, setListProduct] = useState([])
+    const [nameProduct, setNameProduct] = useState('')
+    const [branch, setBranch] = useState('')
+    const [typeProduct, setTypeProduct] = useState('')
+    const [typeDetailProduct, setTypeDetailProduct] = useState('')
+    const [price, setPrice] = useState('')
+    const [description, setDescription] = useState('')
+    const inputFileRef = useRef()
+
+    //Lấy ra list product từ DB [GET]
     useEffect(() => {
         axios.get('http://localhost:5000/product/store')
-            .then(function ({data}) {
-               setListProduct(data.productitem[0].list)
+            .then(function ({ data }) {
+                setListProduct(data.productitem[0].list)
             })
             .catch(function (error) {
                 console.log(error);
             })
-    },[])
+    }, [])
 
-// Hàm xử lý form submit
+    // Hàm xử lý form submit
     const handleSubmit = e => {
         e.preventDefault()
-        const formData = new FormData();    
-        formData.append('nameProduct',nameProduct)
-        formData.append('branch',branch)
-        formData.append('typeProduct',typeProduct)
-        formData.append('typeDetailProduct',typeDetailProduct)
-        formData.append('price',price)
-        formData.append('description',description)
-        formData.append('imgs',inputFileRef.current.files[0])
+        const formData = new FormData();
+        formData.append('nameProduct', nameProduct)
+        formData.append('branch', branch)
+        formData.append('typeProduct', typeProduct)
+        formData.append('typeDetailProduct', typeDetailProduct)
+        formData.append('price', price)
+        formData.append('description', description)
+        formData.append('imgs', inputFileRef.current.files[0])
 
         // Lưu data lên hệ thống
         axios({
@@ -42,10 +42,10 @@ export default function CreateProductPage() {
             url: "http://localhost:5000/product/create",
             data: formData,
             headers: {
-              'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data'
             }
         })
-        .then(res => console.log("Save data sucess"))
+            .then(res => console.log("Save data sucess"))
     }
 
     return (
@@ -55,8 +55,8 @@ export default function CreateProductPage() {
             <form className="mt-2" encType="multipart/form-data" onSubmit={e => handleSubmit(e)} >
                 <div className="form-group">
                     <label htmlFor="nameProduct">Name Product</label>
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         className="form-control"
                         value={nameProduct}
                         placeholder="Nhập tên sản phẩm..."
@@ -67,11 +67,11 @@ export default function CreateProductPage() {
                 {/* Nhập Branch */}
                 <div className="form-group">
                     <label htmlFor="branch">Branch</label>
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         className="form-control"
                         value={branch}
-                        placeholder="Nhập thương hiệu..." 
+                        placeholder="Nhập thương hiệu..."
                         onChange={(e) => setBranch(e.target.value)}
                     />
                 </div>
@@ -79,59 +79,59 @@ export default function CreateProductPage() {
                 {/* Nhập Loại sản phẩm */}
                 <div className="form-group">
                     <label htmlFor="typeProduct">Loại sản phẩm</label>
-                    <select 
+                    <select
                         className="form-control"
                         value={typeProduct}
                         onChange={(e) => setTypeProduct(e.target.value)}
-                        >
-                            <option value="">--Chọn loại sản phẩm--</option>
-                            {listProduct.map((product,index) => (
-                                <option 
-                                    key={index} 
-                                    value={product.productType}
-                                        >{product.productType}
-                                </option>
-                            ))}
+                    >
+                        <option value="">--Chọn loại sản phẩm--</option>
+                        {listProduct.map((product, index) => (
+                            <option
+                                key={index}
+                                value={product.productType}
+                            >{product.productType}
+                            </option>
+                        ))}
                     </select>
                 </div>
 
                 {/* Nhập Loại sản phẩm cụ thể*/}
-                {typeProduct&&(
-                <div className="form-group">
-                    <label htmlFor="typeDetailProduct">Loại sản phẩm cụ thể</label>
-                    <select 
-                        className="form-control"
-                        value={typeDetailProduct}
-                        onChange={(e) => setTypeDetailProduct(e.target.value)}
+                {typeProduct && (
+                    <div className="form-group">
+                        <label htmlFor="typeDetailProduct">Loại sản phẩm cụ thể</label>
+                        <select
+                            className="form-control"
+                            value={typeDetailProduct}
+                            onChange={(e) => setTypeDetailProduct(e.target.value)}
                         >
                             <option value="">--Chọn loại sản phẩm cụ thể--</option>
-                            {listProduct.map((product,index) => (
+                            {listProduct.map((product, index) => (
                                 <Fragment key={index}>
-                                    {product.productType===typeProduct?(
+                                    {product.productType === typeProduct ? (
                                         <Fragment>
-                                            {product.List.map((productDetail,index) => (
-                                                <option 
-                                                    key={index} 
+                                            {product.List.map((productDetail, index) => (
+                                                <option
+                                                    key={index}
                                                     value={productDetail}
-                                                        >{productDetail}
+                                                >{productDetail}
                                                 </option>
                                             ))}
                                         </Fragment>
-                                    ):(<Fragment/>)}
+                                    ) : (<Fragment />)}
                                 </Fragment>
                             ))}
-                    </select>
-                </div>
+                        </select>
+                    </div>
                 )}
 
                 {/* Nhập price */}
                 <div className="form-group">
                     <label htmlFor="price">Price</label>
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         className="form-control"
                         value={price}
-                        placeholder="Nhập giá sản phẩm..." 
+                        placeholder="Nhập giá sản phẩm..."
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </div>
@@ -142,11 +142,11 @@ export default function CreateProductPage() {
                     <input type="file" className="form-control" ref={inputFileRef} name="imgs" />
                 </div>
 
-               {/* Nhập Loại mô tả sản phẩm*/} 
+                {/* Nhập Loại mô tả sản phẩm*/}
                 <div className="form-group">
                     <label htmlFor="description">Mô tả chi tiết</label>
-                    <textarea 
-                        className="form-control" 
+                    <textarea
+                        className="form-control"
                         rows="6"
                         value={description}
                         onChange={e => setDescription(e.target.value)}
@@ -155,7 +155,7 @@ export default function CreateProductPage() {
 
                 {/* Submit form */}
                 <div className="form-group">
-                    <input type="submit" value="Thêm sản phẩm" className="btn btn-primary"/>
+                    <input type="submit" value="Thêm sản phẩm" className="btn btn-primary" />
                 </div>
             </form>
         </div>
