@@ -1,4 +1,5 @@
 import axios from 'axios'
+import FormData from 'form-data'
 import {useState, useEffect,Fragment,useRef} from 'react'
 
 export default function CreateProductPage() {
@@ -26,19 +27,25 @@ export default function CreateProductPage() {
 // Hàm xử lý form submit
     const handleSubmit = e => {
         e.preventDefault()
-        const productSubmit = {
-            nameProduct,
-            branch,
-            typeProduct,
-            typeDetailProduct,
-            imgs:inputFileRef.current.files[0],
-            price,
-            description
-        };
-        console.log([productSubmit.imgs])
+        const formData = new FormData();    
+        formData.append('nameProduct',nameProduct)
+        formData.append('branch',branch)
+        formData.append('typeProduct',typeProduct)
+        formData.append('typeDetailProduct',typeDetailProduct)
+        formData.append('price',price)
+        formData.append('description',description)
+        formData.append('imgs',inputFileRef.current.files[0])
 
-        axios.post('http://localhost:5000/product/create', productSubmit)
-            .then(res => console.log("Save data sucess"));
+        // Lưu data lên hệ thống
+        axios({
+            method: "post",
+            url: "http://localhost:5000/product/create",
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(res => console.log("Save data sucess"))
     }
 
     return (
