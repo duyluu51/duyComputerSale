@@ -34,7 +34,9 @@ export default function CreateProductPage() {
         formData.append('typeDetailProduct', typeDetailProduct)
         formData.append('price', price)
         formData.append('description', description)
-        formData.append('imgs', inputFileRef.current.files[0])
+        for (let i = 0; i < inputFileRef.current.files.length; i++) {
+            formData.append('imgs', inputFileRef.current.files[i])
+        }
 
         // Lưu data lên hệ thống
         axios({
@@ -45,7 +47,17 @@ export default function CreateProductPage() {
                 'Content-Type': 'multipart/form-data'
             }
         })
-            .then(res => console.log("Save data sucess"))
+            .then(res => {
+                // Upload success
+                console.log("Save data sucess")
+                setNameProduct('')
+                setBranch('')
+                // setTypeProduct('')
+                // setTypeDetailProduct('')
+                setPrice('')
+                setDescription('')
+            })
+            
     }
 
     return (
@@ -139,7 +151,7 @@ export default function CreateProductPage() {
                 {/* ĐÍnh kèm hình ảnh sản phẩm */}
                 <div className="form-group">
                     <label htmlFor="img">Ảnh sản phẩm</label>
-                    <input type="file" className="form-control" ref={inputFileRef} name="imgs" />
+                    <input type="file" className="form-control" multiple ref={inputFileRef} name="imgs" />
                 </div>
 
                 {/* Nhập Loại mô tả sản phẩm*/}

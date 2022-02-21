@@ -17,6 +17,8 @@ const fileUploader = require('../config/cloudinary')
 // const upload = multer({ storage: storage }).single('imgs')
 
 router.get('/store', productController.store)
-router.post('/create', fileUploader.single('imgs'), productController.create)
+// router.post('/create', fileUploader.single('imgs'), productController.create)
+router.post('/create', fileUploader.array('imgs', 5), productController.create)
+
 
 module.exports = router;

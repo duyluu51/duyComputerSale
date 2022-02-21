@@ -17,7 +17,12 @@ class ProductController {
     // [GET] /create
     create(req, res, next) {
         const product = new Product(req.body)
-        product.fileUrl=req.file.path
+        let fileUrlsArrays=[]
+        for(let i=0;i<req.files.length;i++) {
+            fileUrlsArrays=[...fileUrlsArrays,req.files[i].path]
+        }
+        
+        product.fileUrls=fileUrlsArrays
         product.save()
             .then(() => {
                 console.log("Save data sucess")
