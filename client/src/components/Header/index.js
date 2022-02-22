@@ -19,7 +19,7 @@ export default function Header() {
                     <div className="col-lg-5 col-md-12 col-sm-12 mt-2">
                         <form className="form-inline my-2 my-lg-0">
                             <input className="form-control mr-sm-2 w-75" type="search" placeholder="Nhập tên, sản phẩm cần tìm..." aria-label="Search"/>
-                            <button className="btn btn-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                            <button className="btn btn-danger my-2 my-sm-0" type="submit">Tìm kiếm</button>
                         </form>
                     </div>
 

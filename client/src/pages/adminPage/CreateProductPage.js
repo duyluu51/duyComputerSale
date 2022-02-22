@@ -159,7 +159,7 @@ export default function CreateProductPage() {
                     <label htmlFor="description">Mô tả chi tiết</label>
                     <textarea
                         className="form-control"
-                        rows="6"
+                        rows="8"
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                     ></textarea>

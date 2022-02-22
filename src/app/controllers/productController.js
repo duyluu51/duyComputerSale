@@ -14,6 +14,15 @@ class ProductController {
             .catch(next)
     }
 
+    // [GET] /banner
+    banner(req, res, next) {
+        ProductList.find({ subject: "Banner" })
+            .then(banners => {
+                res.json({ banners })
+            })
+            .catch(next)
+    }
+
     // [GET] /create
     create(req, res, next) {
         const product = new Product(req.body)

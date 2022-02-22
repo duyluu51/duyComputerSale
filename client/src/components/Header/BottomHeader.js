@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 import style from'./Header.module.css'
 export default function BottomHeader() {
     return (
-        <div className="card-header bg-primary">
+        <div className="card-header bg-danger">
             <div className="container">
                 <ul className="navbar-nav mr-auto d-flex flex-row">
                     <li className="nav-item active mr-4">
