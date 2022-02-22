@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Fragment, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import style from './Slider.module.css'
 
 export default function Slider() {
@@ -58,14 +58,31 @@ export default function Slider() {
                         <img className="card-img-top"
                             src="https://res.cloudinary.com/dvnipovxd/image/upload/v1645499876/banner/slider_1_image_bqnwjj.jpg"
                             style={{ height: 145 }}
+                            alt="Banner" 
                         />
                     </div>
                     <div className="card mt-2">
                         <img className="card-img-top"
                             src="https://res.cloudinary.com/dvnipovxd/image/upload/v1645499871/banner/slider_5_image_esxkga.jpg"
                             style={{ height: 145 }}
+                            alt="Banner" 
                         />
                     </div>
+                </div>
+            </div>
+
+            <div className="row mt-4">
+                <div className="col">
+                    <img src="https://res.cloudinary.com/dvnipovxd/image/upload/v1645516905/banner/banner_home_1_upwovj.png" 
+                        className="img-fluid" 
+                        alt="Banner" 
+                    />
+                </div>
+
+                <div className="col">
+                    <img src="https://res.cloudinary.com/dvnipovxd/image/upload/v1645516897/banner/bannerHome2_tf50r2.png" 
+                        className="img-fluid" 
+                        alt="Banner" />
                 </div>
             </div>
         </div>
