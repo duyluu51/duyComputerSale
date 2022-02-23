@@ -23,15 +23,33 @@ class ProductController {
             .catch(next)
     }
 
+    // [GET] /bannerHome
+    bannerHome(req, res, next) {
+        ProductList.find({ subject: "BannerHome" })
+            .then(bannerItems => {
+                res.json({ bannerItems })
+            })
+            .catch(next)
+    }
+
+    // [GET] /collection/:typeproduct
+    collection(req, res, next) {
+        Product.find({ typeProduct: req.params.typeproduct })
+            .then(productCollection => {
+                res.json({ productCollection })
+            })
+            .catch(next)
+    }
+
     // [GET] /create
     create(req, res, next) {
         const product = new Product(req.body)
-        let fileUrlsArrays=[]
-        for(let i=0;i<req.files.length;i++) {
-            fileUrlsArrays=[...fileUrlsArrays,req.files[i].path]
+        let fileUrlsArrays = []
+        for (let i = 0; i < req.files.length; i++) {
+            fileUrlsArrays = [...fileUrlsArrays, req.files[i].path]
         }
-        
-        product.fileUrls=fileUrlsArrays
+
+        product.fileUrls = fileUrlsArrays
         product.save()
             .then(() => {
                 console.log("Save data sucess")

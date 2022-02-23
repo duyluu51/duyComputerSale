@@ -1,11 +1,33 @@
+import axios from 'axios'
+import {useState,useEffect} from 'react'
 import Slider from '../components/Slider'
-import CardProduct from '../components/CardProduct'
+import CardAreaShow from "../components/CardAreaShow"
 export default function HomePage() {
+    //Lấy ra list banner từ DB
+    const [listTypeProduct,setListTypeProduct] =useState([])
+    useEffect(() => {
+        axios.get('/product/bannerhome')
+            .then(function ({data}) {
+               setListTypeProduct(data.bannerItems[0].list)
+               console.log(data.bannerItems[0].list)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    },[])
 
     return (
         <div id='homePage' >
             <Slider />
-            <CardProduct />
+
+            {/* Có vòng lặp */}
+            {listTypeProduct.map((typeProduct,index)=>(
+                <CardAreaShow
+                    key={index}
+                    urlBanner={typeProduct.urlBanner}
+                    typeProduct={typeProduct.typeProduct}
+                />
+            ))}
         </div>
     )
 }
