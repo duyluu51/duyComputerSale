@@ -9,7 +9,6 @@ export default function HomePage() {
         axios.get('/product/bannerhome')
             .then(function ({data}) {
                setListTypeProduct(data.bannerItems[0].list)
-               console.log(data.bannerItems[0].list)
             })
             .catch(function (error) {
                 console.log(error);
