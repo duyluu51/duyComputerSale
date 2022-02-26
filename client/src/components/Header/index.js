@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import BottomHeader from './BottomHeader.js'
 import MenuProductHeader from './MenuProductHeader.js'
-import style from'./Header.module.css'
 
 export default function Header() {
 

@@ -8,7 +8,6 @@ export default function Slider() {
     useEffect(() => {
         axios.get('/product/banner')
             .then(function ({ data }) {
-                console.log(data)
                 setListBanner(data.banners[0].list)
             })
             .catch(function (error) {
