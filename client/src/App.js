@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import ProductDetailPage from './pages/productDetailPage'
 import ProductCollectionPage from './pages/productCollectionPage'
@@ -18,6 +19,8 @@ function App() {
           <Route path="/product/:slug" element={<ProductDetailPage />} />
         </Routes>
       </div>
+
+      <Footer/>
     </div>
   );
 }

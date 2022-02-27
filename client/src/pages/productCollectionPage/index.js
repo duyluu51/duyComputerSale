@@ -15,7 +15,7 @@ export default function ProductCollectionPage() {
     const [productCollection, setProductCollection] = useState([])
     const [branchList, setBranchList] = useState([])
     const [branchFilter, setBranchFilter] = useState([])
-    const [conditionFilter, setConditionFilter] = useState('nameAscending')
+    const [conditionSort, setConditionSort] = useState('nameAscending')
 
     // Get data trên server base on loại sản phẩm
     useEffect(() => {
@@ -49,28 +49,51 @@ export default function ProductCollectionPage() {
 
     }, [typeProduct, typeDetailProduct])
 
-    // Handle filter data theo state được chọn
+    // Filter theo branch (onprogress)
+
+    const handleFilterByBranch = (branchItem) => {
+        let filterResult
+        if(branchFilter.includes(branchItem)) {
+            filterResult=branchFilter.filter((branch,index)=>branch!==branchItem)
+        }else {
+            filterResult=[...branchFilter,branchItem]
+        }
+
+        let filterList=[]
+        let filterListItem
+        if(filterResult!==[]) {
+            // setBranchFilter(filterResult)
+            for(let i=0;i<filterResult.length;i++) {
+                filterListItem=productCollection.filter(product=>filterResult[i]===product.branch)
+                filterList=[...filterList,...filterListItem]
+            }
+
+            console.log(filterList)
+        }
+    }
+
+    // Handle sort data theo state được chọn
 
     const handleSortPriceUp = (e) => {
-        setConditionFilter('priceUp')
+        setConditionSort('priceUp')
         let sortList = productCollection.sort((a, b) => (parseInt(a.price) - parseInt(b.price) > 0) ? 1 : -1)
         setProductCollection(sortList)
     }
 
     const handleSortPriceDown = (e) => {
-        setConditionFilter('priceDown')
+        setConditionSort('priceDown')
         let sortList = productCollection.sort((a, b) => (parseInt(a.price) - parseInt(b.price) < 0) ? 1 : -1)
         setProductCollection(sortList)
     }
 
     const handleSortNameAscending = (e) => {
-        setConditionFilter('nameAscending')
+        setConditionSort('nameAscending')
         let sortList = productCollection.sort((a, b) => (a.nameProduct > b.nameProduct) ? 1 : -1)
         setProductCollection(sortList)
     }
 
     const handleSortNameDescending = (e) => {
-        setConditionFilter('nameDescending')
+        setConditionSort('nameDescending')
         let sortList = productCollection.sort((a, b) => (a.nameProduct < b.nameProduct) ? 1 : -1)
         setProductCollection(sortList)
     }
@@ -100,14 +123,17 @@ export default function ProductCollectionPage() {
                                 key={index}
                                 className="list-group-item"
                             >
-                                <input type="checkbox" /> {branchItem}
+                                <input 
+                                    onClick={e=>handleFilterByBranch(branchItem)} 
+                                    type="checkbox" 
+                                /> {branchItem}
                             </li>
                         ))}
 
                     </ul>
                 </div>
 
-                {/* sort theo giá,name */}
+                {/* sort theo price, name */}
                 <div className={clsx(style.filterCollection, 'd-inline-block ml-4')}>
                     <label
                         className={clsx(style.title, 'ml-2', 'mr-2')}
@@ -125,7 +151,7 @@ export default function ProductCollectionPage() {
                             <input
                                 type='radio'
                                 className='mr-1'
-                                checked={conditionFilter === 'priceUp'}
+                                checked={conditionSort === 'priceUp'}
                                 readOnly
                             />
                             Giá: tăng dần
@@ -138,7 +164,7 @@ export default function ProductCollectionPage() {
                             <input
                                 type='radio'
                                 className='mr-1'
-                                checked={conditionFilter === 'priceDown'}
+                                checked={conditionSort === 'priceDown'}
                                 readOnly
                             />
                             Giá: giảm dần
@@ -151,7 +177,7 @@ export default function ProductCollectionPage() {
                             <input
                                 type='radio'
                                 className='mr-1'
-                                checked={conditionFilter === 'nameAscending'}
+                                checked={conditionSort === 'nameAscending'}
                                 readOnly
                             />
                             Tên: A-Z
@@ -164,7 +190,7 @@ export default function ProductCollectionPage() {
                             <input
                                 type='radio'
                                 className='mr-1'
-                                checked={conditionFilter === 'nameDescending'}
+                                checked={conditionSort === 'nameDescending'}
                                 readOnly
                             />
                             Tên: Z-A
@@ -174,7 +200,8 @@ export default function ProductCollectionPage() {
                 </div>
 
             </div>
-
+            
+            {/* Render card product show Area */}
             <div className='d-flex flex-wrap'>
                 {productCollection.map((product, index) => (
                     <div key={index}>
